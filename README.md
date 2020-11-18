@@ -3,14 +3,15 @@
 - [Oi-contacts]
     - [Resumo](#resumo)
     - [Link Demonstração API](#link-demonstracao-api)
-    - [Open API 3.0](#open-api-3.0)
     - [Pré Requisitos](#pre-requisitos)
     - [Instalando](#instalando)
+    - [Executando os seeds](#executando-os-seeds)
     - [Executando o ambiente de desenvolvimento](#executando-o-ambiente-de-desenvolvimento)
     - [Recursos](#recursos)
     - [Rota /](#rota-/)
     - [Rota GET Contatos](#rota-get-contatos)
     - [Rota GET Contato](#rota-get-contato)
+    - [Rota GET Contatos Busca](#rota-get-contato-busca)
     - [Rota POST Contato](#rota-post-contato)
     - [Rota PUT Contato](#rota-put-contato)
     - [Rota DELETE Contato](#rota-delete-contato)
@@ -24,10 +25,6 @@ Esta é uma API construída com Typescript + NodeJS + Express + MongoDB.
 ## Link Demonstração API
 
 <a href="https://oi-contacts.herokuapp.com/">https://oi-contacts.herokuapp.com/</a>
-
-## Open API 3.0
-
-<a href="https://oi-contacts.herokuapp.com/docs">https://oi-contacts.herokuapp.com/docs ou http://localhost:3333/docs</a>
 
 ### Pré-requisitos
 
@@ -53,6 +50,14 @@ _ou_
 
 $ npm install
 
+### Executando os seeds
+
+$ yarn seeds
+
+_ou_
+
+$ npm run seeds
+
 ### Executando o ambiente de desenvolvimento
 
 $ yarn dev
@@ -67,6 +72,7 @@ $ npm run dev
 |:--------------             |:----------------------------------------------------------------------|
 | `GET /`                    | Retorna a mensagem Server Running                                     |
 | `GET /contacts`            | Retorna uma lista de contatos                                         |
+| `GET /contacts/search`     | Busca um contato                                                      |
 | `GET /contacts/:id`        | Retorna um contato                                                    |
 | `POST /contacts`           | Cria um contato                                                       |
 | `PUT /contacts/:id`        | Atualiza um contato                                                   |
@@ -100,9 +106,23 @@ $ npm run dev
 |:------------------|:---------------------------------------------------------------------------------------|
 | Recurso           |                         **/contacts**                                                  |
 | Metodo            |                         **GET**                                                        |
-| Parametros        |    **page**|**limit**|**page**|**type**|**document**|**state**|**city**:**opcional**   |
+| Parametros        |                    **page**|**limit**|:**opcional**                                    |
 | Resposta Sucesso  | **Código:** 200 **Conteúdo:** `{ "[{contacts}]" }`                                     |
 | Resposta do erro  |  **Código:** 400 **Conteúdo:** `{ "message": "There are no contacts registered." }`    |
+
+### Rota GET Contatos Busca
+
+- **Essa é uma rota para buscar um contato**
+
+> http://localhost:3333/contacts/search ou https://oi-contacts.herokuapp.com/contacts/search
+
+| Contacts          |                                                                                        |
+|:------------------|:---------------------------------------------------------------------------------------|
+| Recurso           |                         **/contacts**                                                  |
+| Metodo            |                         **GET**                                                        |
+| Parametros        |              **type**|**document**|**state**|**city**:**requerido**                    |
+| Resposta Sucesso  | **Código:** 200 **Conteúdo:** `{ "{contacts}" }`                                       |
+| Resposta do erro  |  **Código:** 400 **Conteúdo:** `{ "message": "This search has no data." }`             |
 
 ### Rota GET Contato
 

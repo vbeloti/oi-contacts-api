@@ -7,24 +7,10 @@ import ContactService from '../services/ContactService';
 
 class ContactController {
   async index(req: Request, res: Response) {
-    const {
-      page = 1, limit = 5, type, document, state, city,
-    } = req.query;
+    const { page = 1, limit = 5 } = req.query;
 
     const contactRepository = new ContactRepository();
     const contactService = new ContactService(contactRepository);
-
-    if (type && document && state && city) {
-      const contact = await contactService.search(
-        String(type),
-        String(document),
-        String(state),
-        String(city),
-      );
-
-      if (!contact) throw new AppError('This search has no data');
-      return res.json(contact);
-    }
 
     const contacts = await contactService.index(Number(page), Number(limit));
     if (!contacts.data.length) throw new AppError('There are no contacts registered.');
@@ -115,6 +101,25 @@ class ContactController {
     const contactService = new ContactService(contactRepository);
     const contact = await contactService.show(id);
 
+    return res.json(contact);
+  }
+
+  async search(req: Request, res: Response) {
+    const {
+      type, document, state, city,
+    } = req.query;
+
+    const contactRepository = new ContactRepository();
+    const contactService = new ContactService(contactRepository);
+
+    const contact = await contactService.search(
+      String(type),
+      String(document),
+      String(state),
+      String(city),
+    );
+
+    if (!contact) throw new AppError('This search has no data');
     return res.json(contact);
   }
 }

@@ -11,6 +11,8 @@ router.get('/', (req, res) => res.json({ message: 'Server Running 🔥' }));
 
 router.get('/contacts', contactController.index);
 
+router.get('/contacts/search', contactController.search);
+
 router.post('/contacts', contactController.store);
 
 router.put('/contacts/:id', contactController.update);
